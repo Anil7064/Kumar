@@ -1,94 +1,753 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080d1b">
     <title>Anil Kumar Mohanty | SAP ABAP Developer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #080d1b;
+            --panel: #111a2d;
+            --blue: #60a5fa;
+            --cyan: #22d3ee;
+            --text: #f1f5f9;
+            --muted: #a5b4c8;
+            --border: rgba(148, 163, 184, .17);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: auto;
+        }
+
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 22px 0;
+            z-index: 5;
+            border-bottom: 1px solid rgba(255,255,255,.12);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            color: #e2e8f0;
+            font-size: 13px;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        /* Hero background photo */
+        .hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+
+            /* Replace with the direct image URL if needed */
+            background-image:
+                linear-gradient(100deg,
+                    rgba(5, 10, 24, .94) 0%,
+                    rgba(5, 10, 24, .76) 55%,
+                    rgba(5, 10, 24, .48) 100%),
+                url("https://www.photo-pick.com/online/M3QarBHC.link");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #101a31;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(transparent, var(--bg));
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 130px 0 100px;
+            max-width: 760px;
+        }
+
+        .availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 13px;
+            border: 1px solid rgba(34, 211, 238, .35);
+            border-radius: 30px;
+            background: rgba(8, 145, 178, .12);
+            color: #a5f3fc;
+            font-size: 12px;
+            margin-bottom: 24px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #34d399;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #34d399;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 7vw, 70px);
+            line-height: 1.1;
+            letter-spacing: -3px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero h2 {
+            font-size: clamp(17px, 3vw, 24px);
+            color: #dbeafe;
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            color: #c0cada;
+            max-width: 620px;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 21px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: .25s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(100deg, #2563eb, #0891b2);
+            color: white;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(37,99,235,.22);
+        }
+
+        /* Common sections */
+        section {
+            padding: 65px 0;
+        }
+
+        .section-label {
+            color: var(--cyan);
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: clamp(26px, 4vw, 36px);
+            letter-spacing: -1px;
+            margin-bottom: 13px;
+        }
+
+        .section-intro {
+            color: var(--muted);
+            font-size: 14px;
+            max-width: 680px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: linear-gradient(
+                145deg,
+                rgba(20, 31, 53, .95),
+                rgba(12, 20, 37, .95)
+            );
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 27px;
+            transition: transform .25s, border-color .25s;
+        }
+
+        .panel:hover {
+            transform: translateY(-4px);
+            border-color: rgba(96, 165, 250, .5);
+        }
+
+        .about-text {
+            color: #c3cede;
+            font-size: 14px;
+        }
+
+        .about-text p + p {
+            margin-top: 15px;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .skill-card h3 {
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            border: 1px solid rgba(96, 165, 250, .25);
+            color: #bfdbfe;
+            background: rgba(37, 99, 235, .12);
+            padding: 6px 10px;
+            border-radius: 7px;
+            font-size: 11px;
+        }
+
+        /* Experience */
+        .experience {
+            position: relative;
+        }
+
+        .experience h3 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            color: var(--cyan);
+            font-size: 13px;
+            margin-bottom: 17px;
+        }
+
+        .experience ul {
+            padding-left: 20px;
+            color: #c3cede;
+            font-size: 13px;
+        }
+
+        .experience li {
+            padding: 5px 0;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .project-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(34, 211, 238, .10);
+            border: 1px solid rgba(34, 211, 238, .2);
+            color: var(--cyan);
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .project h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .project p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 17px;
+        }
+
+        .project small {
+            color: #93c5fd;
+            font-size: 11px;
+        }
+
+        /* Contact */
+        .contact-panel {
+            text-align: center;
+            background:
+                radial-gradient(ellipse at top, rgba(37,99,235,.18), transparent 65%),
+                var(--panel);
+        }
+
+        .contact-panel .section-intro {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--border);
+            padding: 11px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #dbeafe;
+            overflow-wrap: anywhere;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 15px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        footer .love {
+            color: #fb7185;
+        }
+
+        footer .footer-note {
+            margin-top: 6px;
+            color: #8492a8;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 700px) {
+            nav {
+                padding: 16px 0;
+            }
+
+            .nav-links {
+                gap: 12px;
+                font-size: 11px;
+            }
+
+            .hero {
+                min-height: 600px;
+                background-position: center;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 45px 0;
+            }
+
+            .panel {
+                padding: 21px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo {
+                font-size: 17px;
+            }
+
+            .nav-links {
+                gap: 9px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
-<body style="margin:0;font-family:Arial, sans-serif;background:#f4f6f9;color:#333;">
 
-    <!-- Header -->
-    <div style="background:#0f172a;color:white;padding:60px 20px;text-align:center;">
-        <h1 style="margin:0;font-size:42px;">Anil Kumar Mohanty</h1>
-        <p style="font-size:20px;margin-top:10px;">
-            Associate Software Engineer | SAP ABAP Developer
-        </p>
-    </div>
+<body>
 
-    <!-- About -->
-    <div style="max-width:1000px;margin:40px auto;padding:20px;">
-        <h2 style="color:#0f172a;">About Me</h2>
-        <p style="line-height:1.8;">
-            Hello! I'm Anil Kumar Mohanty, an Associate Software Engineer specializing in SAP ABAP development.
-            I have experience working with SAP OData services, debugging, transport management,
-            performance optimization, and enterprise application development.
-            I am passionate about learning new SAP technologies and building efficient business solutions.
-        </p>
-    </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-inner">
+            <a class="logo" href="#home">ANIL<span>.</span></a>
 
-    <!-- Skills -->
-    <div style="background:white;max-width:1000px;margin:20px auto;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
-        <h2 style="color:#0f172a;">Technical Skills</h2>
-
-        <span style="display:inline-block;background:#2563eb;color:white;padding:8px 15px;margin:5px;border-radius:20px;">SAP ABAP</span>
-        <span style="display:inline-block;background:#2563eb;color:white;padding:8px 15px;margin:5px;border-radius:20px;">OData</span>
-        <span style="display:inline-block;background:#2563eb;color:white;padding:8px 15px;margin:5px;border-radius:20px;">CDS Views</span>
-        <span style="display:inline-block;background:#2563eb;color:white;padding:8px 15px;margin:5px;border-radius:20px;">Debugging</span>
-        <span style="display:inline-block;background:#2563eb;color:white;padding:8px 15px;margin:5px;border-radius:20px;">SAP Gateway</span>
-        <span style="display:inline-block;background:#2563eb;color:white;padding:8px 15px;margin:5px;border-radius:20px;">SQL</span>
-        <span style="display:inline-block;background:#2563eb;color:white;padding:8px 15px;margin:5px;border-radius:20px;">Git</span>
-    </div>
-
-    <!-- Experience -->
-    <div style="max-width:1000px;margin:40px auto;padding:20px;">
-        <h2 style="color:#0f172a;">Professional Experience</h2>
-
-        <div style="background:white;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
-            <h3 style="margin-top:0;">Associate Software Engineer</h3>
-            <p><strong>Technology:</strong> SAP ABAP & OData</p>
-
-            <ul>
-                <li>Developing and enhancing SAP ABAP applications.</li>
-                <li>Working on OData service implementation and support.</li>
-                <li>Debugging and optimizing existing SAP solutions.</li>
-                <li>Managing transports and package structures.</li>
-                <li>Supporting enterprise business processes through SAP development.</li>
-            </ul>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Projects -->
-    <div style="background:white;max-width:1000px;margin:20px auto;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
-        <h2 style="color:#0f172a;">Projects</h2>
+    <!-- Hero -->
+    <header class="hero" id="home">
+        <div class="container hero-content">
 
-        <div>
-            <h3>SAP OData Service Development</h3>
-            <p>Designed and enhanced OData services for Fiori applications with optimized backend logic.</p>
+            <div class="availability">
+                <span class="dot"></span>
+                SAP ABAP & OData Developer
+            </div>
 
-            <h3>ABAP Performance Optimization</h3>
-            <p>Improved program efficiency by optimizing database access and internal table processing.</p>
+            <h1>
+                Anil Kumar<br>
+                <span>Mohanty.</span>
+            </h1>
 
-            <h3>Enterprise SAP Enhancements</h3>
-            <p>Implemented custom business requirements using ABAP reports, enhancements, and custom objects.</p>
+            <h2>Building smarter solutions with SAP ABAP</h2>
+
+            <p>
+                Associate Software Engineer focused on SAP ABAP, OData services,
+                Master Data Governance, CDS views, and Clean Core practices.
+                I turn business requirements into reliable SAP solutions.
+            </p>
+
+            <div class="buttons">
+                <a class="btn btn-primary" href="#projects">
+                    Explore My Work ↗
+                </a>
+
+                <a class="btn btn-outline" href="#contact">
+                    Let's Connect
+                </a>
+            </div>
+
         </div>
-    </div>
+    </header>
 
-    <!-- Contact -->
-    <div style="max-width:1000px;margin:40px auto;padding:20px;">
-        <h2 style="color:#0f172a;">Contact</h2>
+    <main>
 
-        <div style="background:white;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
-            <p>📍 Bhubaneswar, India</p>
-            <p>📧 your-email@example.com</p>
-            <p>💼 LinkedIn: linkedin.com/in/anil-kumar-mohanty</p>
-            <p>💻 GitHub: github.com/anilkumarmohanty</p>
-        </div>
-    </div>
+        <!-- About -->
+        <section id="about">
+            <div class="container">
+                <div class="section-label">01 / Introduction</div>
+                <h2 class="section-title">About Me</h2>
 
-    <!-- Footer -->
-    <div style="background:#0f172a;color:white;text-align:center;padding:20px;">
-        <p style="margin:0;">
-            © 2026 Anil Kumar Mohanty | SAP ABAP Developer |❤️ Desined in request of my love MONA ❤️
+                <div class="panel about-text">
+                    <p>
+                        Hello! I'm Anil Kumar Mohanty, an Associate Software
+                        Engineer with experience in SAP ABAP development and
+                        enterprise application solutions.
+                    </p>
+
+                    <p>
+                        My work includes SAP OData service development,
+                        Material Master governance, BAPI integrations,
+                        debugging, and Clean Core remediation. I've also
+                        worked on ATC findings and improvements that support
+                        cloud-ready ABAP development.
+                    </p>
+
+                    <p>
+                        I enjoy solving technical problems, writing maintainable
+                        code, and continuously improving my SAP development skills.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+            <div class="container">
+                <div class="section-label">02 / What I Work With</div>
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-intro">
+                    Technologies and concepts relevant to my SAP development work.
+                </p>
+
+                <div class="skills-grid">
+
+                    <div class="panel skill-card">
+                        <h3>⚙️ ABAP Development</h3>
+                        <div class="tags">
+                            <span class="tag">Core ABAP</span>
+                            <span class="tag">ABAP Objects</span>
+                            <span class="tag">Reports</span>
+                            <span class="tag">Debugging</span>
+                            <span class="tag">Internal Tables</span>
+                            <span class="tag">Performance Tuning</span>
+                        </div>
+                    </div>
+
+                    <div class="panel skill-card">
+                        <h3>🔗 SAP Integration</h3>
+                        <div class="tags">
+                            <span class="tag">OData V2</span>
+                            <span class="tag">SAP Gateway</span>
+                            <span class="tag">SEGW</span>
+                            <span class="tag">BAPI</span>
+                            <span class="tag">Function Modules</span>
+                            <span class="tag">REST / JSON</span>
+                        </div>
+                    </div>
+
+                    <div class="panel skill-card">
+                        <h3>☁️ S/4HANA & Clean Core</h3>
+                        <div class="tags">
+                            <span class="tag">CDS Views</span>
+                            <span class="tag">ATC Checks</span>
+                            <span class="tag">Clean Core</span>
+                            <span class="tag">DDIC</span>
+                            <span class="tag">Transport Management</span>
+                            <span class="tag">SAP MM Data</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience">
+            <div class="container">
+                <div class="section-label">03 / Career</div>
+                <h2 class="section-title">Professional Experience</h2>
+
+                <div class="panel experience">
+                    <h3>Associate Software Engineer</h3>
+                    <div class="company">
+                        Incture Technologies · SAP ABAP Development
+                    </div>
+
+                    <ul>
+                        <li>
+                            Developed and enhanced custom SAP ABAP solutions
+                            to support enterprise business requirements.
+                        </li>
+                        <li>
+                            Worked on SAP OData services for Material Master
+                            and related master data processes.
+                        </li>
+                        <li>
+                            Implemented and supported BAPI-based integrations
+                            and investigated backend processing errors.
+                        </li>
+                        <li>
+                            Worked on CDS views, database access, and
+                            internal table processing.
+                        </li>
+                        <li>
+                            Addressed ATC findings and applied Clean Core
+                            practices to improve code compliance.
+                        </li>
+                        <li>
+                            Supported debugging, transport management,
+                            service activation, and SAP Gateway troubleshooting.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <div class="container">
+                <div class="section-label">04 / Selected Work</div>
+                <h2 class="section-title">Projects & Expertise</h2>
+                <p class="section-intro">
+                    Examples of SAP development areas I've worked on.
+                </p>
+
+                <div class="projects-grid">
+
+                    <article class="panel project">
+                        <div class="project-icon">↗</div>
+                        <h3>SAP OData Service Development</h3>
+                        <p>
+                            Developed and supported OData V2 services for
+                            SAP integrations, including entity handling,
+                            request processing, payload validation, and
+                            troubleshooting Gateway errors.
+                        </p>
+                        <small>OData V2 · SEGW · SAP Gateway · JSON</small>
+                    </article>
+
+                    <article class="panel project">
+                        <div class="project-icon">◇</div>
+                        <h3>Material Master Governance</h3>
+                        <p>
+                            Worked on master data APIs and BAPI-driven
+                            processes involving material creation and
+                            related data such as BOMs and production versions.
+                        </p>
+                        <small>ABAP · BAPI · SAP MM · Master Data</small>
+                    </article>
+
+                    <article class="panel project">
+                        <div class="project-icon">⌘</div>
+                        <h3>Clean Core & ATC Remediation</h3>
+                        <p>
+                            Worked on resolving ATC findings, reviewing
+                            database access patterns, and applying
+                            cloud-readiness and Clean Core principles.
+                        </p>
+                        <small>ATC · CDS Views · Clean Core</small>
+                    </article>
+
+                    <article class="panel project">
+                        <div class="project-icon">⚡</div>
+                        <h3>ABAP Debugging & Optimization</h3>
+                        <p>
+                            Investigated application errors, analyzed
+                            BAPI return messages, improved data retrieval
+                            patterns, and troubleshot SAP integration issues.
+                        </p>
+                        <small>Debugging · SQL · Internal Tables</small>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="container">
+                <div class="panel contact-panel">
+
+                    <div class="section-label">05 / Get In Touch</div>
+                    <h2 class="section-title">Let's Build Something Great.</h2>
+
+                    <p class="section-intro">
+                        Interested in SAP ABAP opportunities, technical
+                        collaboration, or connecting with fellow developers?
+                        Feel free to reach out.
+                    </p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            📍 Bhubaneswar, Odisha, India
+                        </div>
+
+                        <!-- Replace with your actual email -->
+                        <a class="contact-item"
+                           href="mailto:your-email@example.com">
+                            ✉️ your-email@example.com
+                        </a>
+
+                        <!-- Replace with your actual LinkedIn URL -->
+                        <a class="contact-item"
+                           href="https://www.linkedin.com/"
+                           target="_blank" rel="noopener noreferrer">
+                            💼 LinkedIn ↗
+                        </a>
+
+                        <!-- Replace with your actual GitHub URL -->
+                        <a class="contact-item"
+                           href="https://github.com/"
+                           target="_blank" rel="noopener noreferrer">
+                            💻 GitHub ↗
+                        </a>
+                    </div>
+
+                    <a class="btn btn-primary"
+                       href="mailto:your-email@example.com">
+                        Get In Touch →
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Personal footer -->
+    <footer>
+        <p>
+            © 2026 Anil Kumar Mohanty · SAP ABAP Developer
         </p>
-    </div>
+        <p class="footer-note">
+            Built with code, ambition, and a little love
+            <span class="love">♥</span> for MONA.
+        </p>
+    </footer>
 
 </body>
 </html>
